@@ -21,8 +21,8 @@
         "nette/tester": "@dev"
     },
     "autoload": {
-        "psr-0": {
-            "soundake\\utils\\geolocation\\": "src/"
-        }
+        "classmap": [
+            "src"
+        ]
     }
 }
