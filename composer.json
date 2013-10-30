@@ -1,0 +1,28 @@
+{
+    "name": "soundake/geolocation",
+    "type": "library",
+    "description": "Nette forms container replicator aka addDynamic",
+    "keywords": ["nette", "geo", "geolocation", "utils"],
+    "license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+    "authors": [
+        {
+            "name": "Lukáš Hroch",
+            "homepage": "http://soundake.cz"
+        }
+    ],
+    "support": {
+        "email": "soundake@gmail.com",
+        "issues": "https://github.com/kdyby/replicator/issues"
+    },
+    "require": {
+        "nette/nette": "@dev"
+    },
+    "require-dev": {
+        "nette/tester": "@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "soundake\\utils\\geolocation\\": "src/"
+        }
+    }
+}
