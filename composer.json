@@ -1,7 +1,7 @@
 {
     "name": "soundake/geolocation",
     "type": "library",
-    "description": "Nette forms container replicator aka addDynamic",
+    "description": "My small class to do the geo math",
     "keywords": ["nette", "geo", "geolocation", "utils"],
     "license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
     "authors": [
@@ -12,7 +12,7 @@
     ],
     "support": {
         "email": "soundake@gmail.com",
-        "issues": "https://github.com/kdyby/replicator/issues"
+        "issues": "https://github.com/soundake/Geolocation/issues"
     },
     "require": {
         "nette/nette": "@dev"
