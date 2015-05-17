@@ -10,26 +10,34 @@ class Geolocation extends Object
 
 	/**
 	 * Get latitude and longitude from text interpretation
-	 * @param $input (Loc: 50�5'42.12"N,14�29'14.75"E)
+	 * @param $input (Loc: 50°5'42.12"N,14°29'14.75"E or N 50°8.92478', E 15°32.08008' or 50.1487464N, 15.5346681E)
 	 * @return array((double) x,(double) y)
 	 */
 	public static function getCoordsFromText($input)
 	{
 		$parts = array();
-//           dump($input[7]);
 		$input = preg_replace("/\xc2/", '', $input);
 		if (preg_match("/^Loc: (\d\d)\xb0(\d{1,2})'(\d{1,2}(?:\.\d{1,3})?)\"N,\s*(\d\d)\xb0(\d{1,2})'(\d{1,2}(?:\.\d{1,3})?)\"E$/i", trim($input), $parts)) ;
-		elseif (preg_match("/^(\d\d)\xb0(\d{1,2})'(\d{1,2}(?:\.\d{1,3})?)\"N,\s*(\d\d)\xb0(\d{1,2})'(\d{1,2}(?:\.\d{1,3})?)\"E$/i", trim($input), $parts)) ;
-//           dump($input);
-//           dump($parts);
+        elseif (preg_match("/^(\d\d)\xb0(\d{1,2})'(\d{1,2}(?:\.\d{1,3})?)\"N,\s*(\d\d)\xb0(\d{1,2})'(\d{1,2}(?:\.\d{1,3})?)\"E$/i", trim($input), $parts)) ;
+        elseif (preg_match("/^N\s(\d{1,2})\xb0(\d{1,2}.\d{1,10})',\s*E\s(\d{1,2})\xb0(\d{1,2}.\d{1,10})'$/i", trim($input), $parts));
+        elseif (preg_match("/^(\-?\d+\.\d+?)N,\s*(\-?\d+\.\d+?)E$/i", trim($input), $parts));
+//        dump($input);
+//        dump($parts);
 
-		if (count($parts) > 0) {
-			list($odpad, $degx, $minx, $secx, $degy, $miny, $secy) = $parts;
-			$pozicex = (double)$degx + ($minx * 60 + $secx) / 3600;
-			$pozicey = (double)$degy + ($miny * 60 + $secy) / 3600;
+        if (count($parts) == 7) {
+            list($odpad, $degx, $minx, $secx, $degy, $miny, $secy) = $parts;
+            $pozicex = (double)$degx + ($minx * 60 + $secx) / 3600;
+            $pozicey = (double)$degy + ($miny * 60 + $secy) / 3600;
+        } elseif (count($parts) == 5) {
+            list($odpad, $degx, $minx, $degy, $miny) = $parts;
+            $pozicex = (double)$degx + ($minx * 60) / 3600;
+            $pozicey = (double)$degy + ($miny * 60) / 3600;
+        } elseif (count($parts) == 3) {
+            list($odpad, $pozicex, $pozicey) = $parts;
 		} else {
 			return false;
 		}
+//        dump(array($pozicex, $pozicey));
 		return array($pozicex, $pozicey);
 	}
 
