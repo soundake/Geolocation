@@ -9,4 +9,8 @@ require __DIR__ . '/../src/GoogleMaps.php';
 
 $geo = new \soundake\utils\GoogleMaps();
 
-Assert::same([50.1017197, 14.4527291],$geo->getLatLong("Na Maninách 12, Praha"));
+Assert::false($geo->getLatLong("UYGBNJUYGHJGBJYGBHJUYGBHYGBHYG"));
+$g = $geo->getLatLong("Na Maninách 12, Praha");
+if ($g) {
+    Assert::same([50.1017197, 14.4527291], $g);
+}
