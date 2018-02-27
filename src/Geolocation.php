@@ -10,7 +10,7 @@ class Geolocation
 	 * @param $input (Loc: 50°5'42.12"N,14°29'14.75"E or N 50°8.92478', E 15°32.08008' or 50.1487464N, 15.5346681E)
 	 * @return array((double) x,(double) y)
 	 */
-	public static function getCoordsFromText($input)
+	public static function getCoordsFromText($input): array
 	{
 		$parts = array();
 		$input = preg_replace("/\xc2/", '', $input);
@@ -46,7 +46,7 @@ class Geolocation
 	 * @param $subjLon double
 	 * @return double
 	 */
-	public static function getDistance($sourceLat, $sourceLon, $subjLat, $subjLon)
+	public static function getDistance($sourceLat, $sourceLon, $subjLat, $subjLon): float
 	{
 		// getDistance
 		$lat1 = deg2rad($subjLat);
@@ -75,27 +75,9 @@ class Geolocation
 //		return $distance;
 	}
 
-	private static function haversine($x)
+	private static function haversine(float $x): float
 	{
 		$res = sin($x / 2);
 		return $res * $res;
 	}
-
-	//http://www.barattalo.it/2011/01/24/php-geocoding-function-from-address-to-coordinates-lat-long/
-
-	public function getLatLong($address)
-	{
-		if (!is_string($address)) die("All Addresses must be passed as a string");
-		$_url = sprintf('http://maps.google.com/maps?output=js&q=%s', rawurlencode($address));
-		$_result = false;
-		if ($_result = file_get_contents($_url)) {
-			if (strpos($_result, 'errortips') > 1 || strpos($_result, 'Did you mean:') !== false) return false;
-			preg_match('!center:\s*{lat:\s*(-?\d+\.\d+),lng:\s*(-?\d+\.\d+)}!U', $_result, $_match);
-			$_coords['lat'] = $_match[1];
-			$_coords['long'] = $_match[2];
-		}
-		return $_coords;
-	}
-
-
 }
