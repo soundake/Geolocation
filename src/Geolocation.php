@@ -1,12 +1,9 @@
 <?php
 namespace soundake\utils;
 
-use Nette\Object;
-
-
-class Geolocation extends Object
+class Geolocation
 {
-
+    use \Nette\SmartObject;
 
 	/**
 	 * Get latitude and longitude from text interpretation
